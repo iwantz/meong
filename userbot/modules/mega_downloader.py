@@ -97,13 +97,12 @@ def mega_download(url: str) -> str:
 
 
 def encrypt_file(file_name, file_hex, file_raw_hex):
-    reply = ''
     os.rename(file_name, r"old_{}".format(file_name))
-    cmd = ("cat 'old_%s' | openssl enc -d -aes-128-ctr -K %s -iv %s > '%s'"
-           % (file_name, file_hex, file_raw_hex, file_name))
+    cmd = ("cat 'old_{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
+           .format(file_name, file_hex, file_raw_hex, file_name))
     subprocess_run(cmd)
     os.remove(r"old_{}".format(file_name))
-    return reply
+    return
 
 
 CMD_HELP.update({
