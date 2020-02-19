@@ -59,7 +59,7 @@ botclone() {
 reqinstall() {
     echo "***Installing Requirements***"
     if [ -z "$req" ]; then
-        sudo python3.8 -m pip install -r requirements.txt
+        sudo python3.7 -m pip install -r requirements.txt
         clear
         save_prog "req"
     fi
