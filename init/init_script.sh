@@ -40,7 +40,7 @@ packageinstall() {
     sudo apt --yes --force-yes install build-essential checkinstall git \
         libreadline-gplv2-dev libncursesw5-dev libssl-dev wget \
         libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
-    sudo apt --yes --force-yes install python3.8 docker
+    sudo apt --yes --force-yes install python3.7 docker
 }
 
 # Clone the required repo
@@ -136,7 +136,7 @@ session() {
     echo "Generating session..."
     if [ -z "$sess" ]; then
         python3 windows_startup_script.py
-        python3.8 -m userbot test
+        python3.7 -m userbot test
         save_prog "sess"
     fi
     echo "DONE!!"
