@@ -43,7 +43,4 @@ wikipedia>=1.4.0
 coffeehouse
 telegraph
 pyfiglet
-wget
 python-dateutil
-progress
-file-downloader
