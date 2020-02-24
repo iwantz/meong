@@ -22,6 +22,7 @@ async def _(event):
                     ))
                 except Exception as e:
                     await event.edit(str(e))
+                    return
             await event.edit("`Invited Unsuccessfully`")
             await sleep(3)
             await event.delete()
@@ -35,6 +36,7 @@ async def _(event):
                     ))
                 except Exception as e:
                     await event.edit(str(e))
+                    return
             await event.edit("`Invited Successfully`")
             await sleep(3)
             await event.delete()
