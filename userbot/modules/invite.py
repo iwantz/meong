@@ -21,7 +21,7 @@ async def _(event):
                         fwd_limit=1000000
                     ))
                 except Exception as e:
-                    await event.reply(str(e))
+                    await event.edit(str(e))
             await event.edit("`Invited Unsuccessfully`")
             await sleep(3)
             await event.delete()
@@ -34,7 +34,7 @@ async def _(event):
                         users=[user_id]
                     ))
                 except Exception as e:
-                    await event.reply(str(e))
+                    await event.edit(str(e))
             await event.edit("`Invited Successfully`")
             await sleep(3)
             await event.delete()
