@@ -23,7 +23,6 @@ from subprocess import PIPE, Popen
 import re
 import json
 import os
-import time
 
 from pySmartDL import SmartDL
 from os.path import exists
@@ -115,8 +114,9 @@ async def mega_download(url, megadl):
                 f"\nETA: {estimated_total_time}"
             )
             if status == "Downloading":
-                await megadl.edit(current_message)
-                time.sleep(0.2)
+                if display_message != current_message:
+                    await megadl.edit(current_message)
+                    display_message = current_message
             elif status == "Combining":
                 if display_message != current_message:
                     await megadl.edit(current_message)
@@ -137,9 +137,9 @@ async def mega_download(url, megadl):
             LOGS.info(str(e))
     return
 
-
-async def decrypt_file(file_name, temp_file_name, hex_key, hex_raw_key, megadl):
-    await megadl.edit("Decrypting file...")
+async def decrypt_file(file_name, temp_file_name,
+                       hex_key, hex_raw_key, megadl):
+    await megadl.edit("\n`Decrypting file`...\n")
     cmd = ("cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
            .format(temp_file_name, hex_key, hex_raw_key, file_name))
     await subprocess_run(cmd, megadl)
