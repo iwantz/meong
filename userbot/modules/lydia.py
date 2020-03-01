@@ -9,9 +9,6 @@ Userbot module to help you manage a group
 """
 
 import coffeehouse
-from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
-
 import asyncio
 from userbot import LYDIA_API_KEY, CMD_HELP
 from userbot.events import register
