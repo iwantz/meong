@@ -24,6 +24,8 @@ import re
 import json
 import os
 import time
+import multiprocessing
+
 
 from pySmartDL import SmartDL
 from os.path import exists
@@ -107,9 +109,10 @@ async def mega_download(url, megadl):
         estimated_total_time = downloader.get_eta(human=True)
         try:
             current_message = (
-                f"**{status}**..."
-                f"\nFile Name: `{file_name}`\n"
-                f"\n{progress} `{percentage}%`"
+                "File Name:"
+                f"\n`{file_name}`\n\n"
+                "Status:"
+                f"\n**{status}** | {progress} `{percentage}%`"
                 f"\n{humanbytes(downloaded)} of {humanbytes(total_length)}"
                 f" @ {speed}"
                 f"\nETA: {estimated_total_time}"
@@ -126,11 +129,14 @@ async def mega_download(url, megadl):
     if downloader.isSuccessful():
         download_time = downloader.get_dl_time(human=True)
         if exists(temp_file_name):
-            await decrypt_file(
-                file_name, temp_file_name, hex_key, hex_raw_key, megadl)
-            await megadl.edit(f"`{file_name}`\n\n"
-                              "Successfully downloaded\n"
-                              f"Download took: {download_time}")
+            P = multiprocessing.Process(target=await decrypt_file(
+                file_name, temp_file_name, hex_key, hex_raw_key, megadl), name="Decrypt_File")
+            P.start()
+            P.join()
+            if exists(file_name):
+                await megadl.edit(f"`{file_name}`\n\n"
+                                  "Successfully downloaded\n"
+                                  f"Download took: {download_time}")
     else:
         await megadl.edit("Failed to download...")
         for e in downloader.get_errors():
@@ -138,8 +144,11 @@ async def mega_download(url, megadl):
     return
 
 
+
 async def decrypt_file(file_name, temp_file_name, hex_key, hex_raw_key, megadl):
     await megadl.edit("Decrypting file...")
+async def decrypt_file(file_name, temp_file_name,
+                       hex_key, hex_raw_key, megadl):
     cmd = ("cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
            .format(temp_file_name, hex_key, hex_raw_key, file_name))
     await subprocess_run(cmd, megadl)
@@ -152,5 +161,5 @@ CMD_HELP.update({
     ".mega <mega url>\n"
     "Usage: Reply to a mega link or paste your mega link to\n"
     "download the file into your userbot server\n\n"
-    "Only support for *FILE* only.\n"
+    "Only support for *FILE* only."
 })
