@@ -15,7 +15,13 @@ import requests
 
 from cowpy import cow
 
-from userbot import CMD_HELP
+from os import execl
+import sys
+import os
+import io
+import sys
+import json
+from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 
@@ -769,7 +775,7 @@ async def facepalm(e):
 
 @register(outgoing=True, pattern="^.cry$")
 async def cry(e):
-    """ y u du dis, i cry everytime !! """
+    """ nangis aja """
     await e.edit(choice(CRI))
 
 
@@ -988,16 +994,6 @@ async def Oof(e):
 async def iqless(e):
     await e.edit("♿")
 
-                      
-@register(outgoing=True, pattern="^.fuck$")
-async def iqless(e):
-    await e.edit("🖕🖕🖕🖕🖕🖕🖕🖕\n🖕🖕🖕🖕🖕🖕🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕🖕🖕🖕🖕\n🖕🖕🖕🖕🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕")  
-
-                     
-@register(outgoing=True, pattern="^.bye$")
-async def iqless(e):
-    await e.edit("Kek thx bye")       
-                      
 
 @register(outgoing=True, pattern="^.moon$")
 async def moon(event):
@@ -1135,8 +1131,22 @@ async def let_me_google_that_for_you(lmgtfy_q):
     r = requests.get('http://is.gd/create.php', params=payload)
     await lmgtfy_q.edit(f"Here you are, help yourself.\
     \n[{query}]({r.json()['shorturl']})")
-
-
+    
+    
+@register(outgoing=True, pattern="^.sayhi$")
+async def sayhi(e):
+    await e.edit(
+        "\n💰💰💰💰💰💰💰💰💰💰💰💰"
+        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷🔷🔷🔷🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
+        "\n💰💰💰💰💰💰💰💰💰💰💰💰")
+    
+    
 @register(pattern=r".scam(?: |$)(.*)", outgoing=True)
 async def scam(event):
     """ Just a small command to fake chat actions for fun !! """
@@ -1262,12 +1272,12 @@ async def gtfo(e):
 async def nih(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("`\n(\_/)`"
-                     "`\n(•_•)`"
-                     "`\n >🌹 *ini buat kamu`"
+                     "`\n(●_●)`"
+                     "`\n />🌹 *ini buat kamu`"
                      "`\n                    `"
                      "`\n(\_/)`"
-                     "`\n(•_•)`"
-                     "`\n🌹<\ *tapi boong`")
+                     "`\n(●_●)`"
+                     "`\n🌹<\  *tapi boong`")
 
 
 @register(outgoing=True, pattern="^.fag$")  
@@ -1412,6 +1422,6 @@ CMD_HELP.update({
 \n\nAnd many more\
 \n.nou ; .bot ; .gey ; .gey ; .tf ; .paw ; .taco ; .nih ;\
 \n.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .leave\
-\n.love ; .rain ; .earth ; .fuck ; .iwi\
+\n.love ; .rain ; .earth ; .fuck ; .iwi ; .sayhi\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
