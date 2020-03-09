@@ -44,3 +44,4 @@ coffeehouse>=2.1.0
 telegraph
 pyfiglet
 python-dateutil
+git+https://github.com/johnwmillr/LyricsGenius.git
